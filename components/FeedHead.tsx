@@ -13,7 +13,7 @@ export const FeedHead: FC = () => {
   return (
     <View style={[styles.container, !isMobile && styles.desktop]}>
       <Text style={styles.title}>Feed</Text>
-      <View style={[styles.holder, isMobile && { minHeight: 40, flexDirection: 'row-reverse' }]}>
+      <View style={[styles.holder, isMobile && styles.mobileHolder]}>
         <Link
           href="/search"
           style={[
@@ -54,12 +54,18 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     gap: 10,
+    height: 40
+  },
+  mobileHolder: { 
+    flexDirection: 'row-reverse',
+    marginVertical: 10
   },
   fakeInput: {
     flex: 1,
     backgroundColor: '#f5f5f5',
-    padding: 13,
+    padding: 10,
     borderRadius: 12,
+    height: 40
   },
   fakeInputMobile: {
     width: '100%',
@@ -72,7 +78,7 @@ const styles = StyleSheet.create({
   },
   avatar: {
     width: 40,
-    aspectRatio: 1,
+    height: 40,
     borderRadius: 20,
   },
   placeholder: {
