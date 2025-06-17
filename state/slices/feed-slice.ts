@@ -1,15 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { getAllPhotos } from '../../services/unsplash';
-import { UnsplashPhoto } from '../../types/unsplash';
 
-interface PhotosState {
-  photos: UnsplashPhoto[];
-  page: number;
-  hasMore: boolean;
-  loading: boolean;
-  error: string | null;
-}
+import { UnsplashPhoto } from '../../types/unsplash';
+import { PhotosState } from '../../types/store';
+import { RootState } from '../stores/photos-store';
 
 const initialState: PhotosState = {
   photos: [],
@@ -19,34 +14,35 @@ const initialState: PhotosState = {
   error: null,
 };
 
-export const fetchPhotosPage = createAsyncThunk<
+export const fetchAllPhotos = createAsyncThunk<
   UnsplashPhoto[],
   void,
-  { state: { photos: PhotosState } }
->('photos/fetchPage', async (_, thunkAPI) => {
-  const state = thunkAPI.getState().photos;
-  const nextPage = state.page;
-  return await getAllPhotos(nextPage);
+  { state: RootState }
+>('feed/getAllPhotos', async (_, thunkAPI) => {
+  const { page } = thunkAPI.getState().feed;
+
+  return await getAllPhotos(page);
 });
 
-const photosSlice = createSlice({
-  name: 'photos',
+const feedSlice = createSlice({
+  name: 'feed',
   initialState,
   reducers: {
-    resetPhotos(state) {
-      state.photos = [];
+    clearFeed(state) {
       state.page = 1;
+      state.photos = [];
       state.hasMore = true;
+      state.loading = false;
       state.error = null;
-    },
+    }
   },
   extraReducers: builder => {
     builder
-      .addCase(fetchPhotosPage.pending, state => {
+      .addCase(fetchAllPhotos.pending, state => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchPhotosPage.fulfilled, (state, { payload }) => {
+      .addCase(fetchAllPhotos.fulfilled, (state, { payload }) => {
         state.loading = false;
         if (payload.length === 0) {
           state.hasMore = false;
@@ -59,12 +55,12 @@ const photosSlice = createSlice({
           state.page += 1;
         }
       })
-      .addCase(fetchPhotosPage.rejected, (state, { error }) => {
+      .addCase(fetchAllPhotos.rejected, (state, { error }) => {
         state.loading = false;
         state.error = error.message ?? 'Unexpected error while loading photos.';
       });
   },
 });
 
-export const { resetPhotos } = photosSlice.actions;
-export default photosSlice.reducer;
+export const { clearFeed } = feedSlice.actions;
+export default feedSlice.reducer;
