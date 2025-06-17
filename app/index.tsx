@@ -4,24 +4,24 @@ import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 import { PhotoCard } from '../components/PhotoCard';
 import { FeedHead } from '../components/FeedHead';
 
-import { fetchPhotosPage } from '../state/slices/photos-slice';
+import { fetchAllPhotos } from '../state/slices/feed-slice';
 
 import { useBreakpoint } from '../hooks/use-breakpoint';
 import { useAppSelector } from '../hooks/use-app-selector';
 import { useAppDispatch } from '../hooks/use-app-dispatch';
 
 export default function FeedScreen() {
-  const dispatch = useAppDispatch();
   const d = useBreakpoint();
-  const { photos, loading, hasMore } = useAppSelector((s) => s.photos);
+  const dispatch = useAppDispatch();
+  const { photos, hasMore, loading } = useAppSelector((s) => s.feed);
 
   useEffect(() => {
-    dispatch(fetchPhotosPage());
+    dispatch(fetchAllPhotos());
   }, [dispatch]);
 
   const handleEndReached = () => {
     if (!loading && hasMore) {
-      dispatch(fetchPhotosPage());
+      dispatch(fetchAllPhotos());
     }
   };
   
