@@ -5,6 +5,7 @@ import { Link } from 'expo-router';
 import { useBreakpoint } from '../hooks/use-breakpoint';
 
 import avatar from '../assets/avatar.avif'
+import { Styles } from '../constants/styles';
 
 export const FeedHead: FC = () => {
   const bp = useBreakpoint();
@@ -12,7 +13,7 @@ export const FeedHead: FC = () => {
 
   return (
     <View style={[styles.container, !isMobile && styles.desktop]}>
-      <Text style={styles.title}>Feed</Text>
+      <Text style={[Styles.textTitleExtraLarge, { flex: 1 }]}>Feed</Text>
       <View style={[styles.holder, isMobile && styles.mobileHolder]}>
         <Link
           href="/search"
@@ -21,7 +22,7 @@ export const FeedHead: FC = () => {
             isMobile && styles.fakeInputMobile,
           ]}
         >
-          <Text style={styles.placeholder}>Search photos...</Text>
+          <Text style={Styles.textCaptionSmall}>Search photos...</Text>
         </Link>
         <Image
           source={avatar}
@@ -70,20 +71,9 @@ const styles = StyleSheet.create({
   fakeInputMobile: {
     width: '100%',
   },
-  title: {
-    flex: 1,
-    fontFamily: 'Figtree',
-    fontWeight: 'bold',
-    fontSize: 24,
-  },
   avatar: {
     width: 40,
     height: 40,
     borderRadius: 20,
-  },
-  placeholder: {
-    fontFamily: 'Figtree',
-    fontSize: 14,
-    color: '#9e9e9e',
   },
 })
