@@ -30,7 +30,7 @@ export const Styles = StyleSheet.create({
   },
   textTitleRegular: {
     fontFamily: fontFamilies.figtree,
-    fontWeight: "800",
+    fontWeight: "700",
     fontSize: 16,
     lineHeight: 21.86,
     color: Colors.black,
