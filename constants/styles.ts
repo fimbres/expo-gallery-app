@@ -52,15 +52,15 @@ export const Styles = StyleSheet.create({
   textCaptionSmall: {
     fontFamily: fontFamilies.figtree,
     fontWeight: "400",
-    fontSize: 16,
-    lineHeight: 21.86,
-    color: Colors.black,
+    fontSize: 14,
+    lineHeight: 18,
+    color: Colors.placeholder,
   },
   textCaptionExtraSmall: {
     fontFamily: fontFamilies.figtree,
     fontWeight: "400",
     fontSize: 12,
     lineHeight: 16.39,
-    color: Colors.black,
+    color: Colors.placeholder,
   },
 });
