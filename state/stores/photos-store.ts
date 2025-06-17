@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import photosReducer from "../slices/photos-slice";
+import feedReducer from "../slices/feed-slice";
+import searchReducer from "../slices/search-slice";
 
 export const store = configureStore({
     reducer: {
-        photos: photosReducer,
+        feed: feedReducer,
+        search: searchReducer,
     },
 });
 
