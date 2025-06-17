@@ -14,7 +14,7 @@ interface PhotosState {
 const initialState: PhotosState = {
   photos: [],
   page: 1,
-  hasMore: false,
+  hasMore: true,
   loading: false,
   error: null,
 };
@@ -36,7 +36,7 @@ const photosSlice = createSlice({
     resetPhotos(state) {
       state.photos = [];
       state.page = 1;
-      state.hasMore = false;
+      state.hasMore = true;
       state.error = null;
     },
   },
@@ -51,7 +51,11 @@ const photosSlice = createSlice({
         if (payload.length === 0) {
           state.hasMore = false;
         } else {
-          state.photos = [...state.photos, ...payload];
+          // bug fix: the unsplash API sometimes returns duplicated images between pages.
+          const existingIds = new Set(state.photos.map(p => p.id));
+          const newPhotos = payload.filter(p => !existingIds.has(p.id));
+
+          state.photos = [...state.photos, ...newPhotos];
           state.page += 1;
         }
       })
