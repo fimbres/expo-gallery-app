@@ -1,18 +1,19 @@
 import { FC } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Image } from 'react-native'
 import { Link } from 'expo-router';
 
 import { useBreakpoint } from '../hooks/use-breakpoint';
+
+import avatar from '../assets/avatar.avif'
 
 export const FeedHead: FC = () => {
   const bp = useBreakpoint();
   const isMobile = bp === "mobile";
 
   return (
-    <>
-      <View style={[styles.container, !isMobile && styles.desktop]}>
-        <Text style={styles.title}>Feed</Text>
-
+    <View style={[styles.container, !isMobile && styles.desktop]}>
+      <Text style={styles.title}>Feed</Text>
+      <View style={[styles.holder, isMobile && { minHeight: 40, flexDirection: 'row-reverse' }]}>
         <Link
           href="/search"
           style={[
@@ -22,37 +23,43 @@ export const FeedHead: FC = () => {
         >
           <Text style={styles.placeholder}>Search photos...</Text>
         </Link>
-
+        <Image
+          source={avatar}
+          style={styles.avatar}
+        />
       </View>
-        <View style={styles.subtitleSection}>
-          <Text style={[styles.title, styles.subtitle]}>
-            All Photos
-          </Text>
-        </View>
-    </>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 30,
     alignItems: 'center',
+    paddingTop: 30,
   },
   desktop: {
-    paddingTop: 40,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: 15,
     width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
     alignSelf: 'center',
+    gap: 15,
+    paddingTop: 20,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f5f5f5'
+  },
+  holder: {
+    flex: 1,
+    width: '100%',
+    flexDirection: 'row',
+    gap: 10,
   },
   fakeInput: {
     flex: 1,
     backgroundColor: '#f5f5f5',
     padding: 13,
     borderRadius: 12,
-    marginBottom: 20,
   },
   fakeInputMobile: {
     width: '100%',
@@ -62,15 +69,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Figtree',
     fontWeight: 'bold',
     fontSize: 24,
-    marginBottom: 16,
   },
-  subtitleSection: {
-    width: '100%',
-  },
-  subtitle: {
-    fontSize: 15,
-    marginBottom: 20,
-    textAlign: 'left',
+  avatar: {
+    width: 40,
+    aspectRatio: 1,
+    borderRadius: 20,
   },
   placeholder: {
     fontFamily: 'Figtree',
