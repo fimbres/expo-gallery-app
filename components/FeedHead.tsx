@@ -51,15 +51,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     gap: 15,
     paddingTop: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: '#f5f5f5'
+    borderRadius: 12,
+    marginTop: 10,
   },
   holder: {
     flex: 1,
     width: '100%',
     flexDirection: 'row',
     gap: 10,
-    height: 40
+    height: 40,
   },
   mobileHolder: { 
     flexDirection: 'row-reverse',

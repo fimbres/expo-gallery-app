@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingBottom: 10,
+    paddingHorizontal: 10,
     backgroundColor: Colors.white,
   },
   desktop: {
@@ -65,7 +66,9 @@ const styles = StyleSheet.create({
     gap: 15,
     paddingTop: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#f5f5f5'
+    borderBottomColor: '#f5f5f5',
+    borderRadius: 12,
+    marginTop: 10,
   },
   holder: {
     flex: 1,

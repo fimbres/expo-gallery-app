@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     width: '100%',
     gap: 10,
-    paddingHorizontal: 10,
     paddingBottom: 60
   },
   desktopContainer: {
@@ -75,6 +74,7 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
   },
   column: {
+    paddingHorizontal: 10,
     gap: 10
   },
   footer: {
