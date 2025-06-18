@@ -8,7 +8,8 @@ export const DetailsHead: FC<{ photo: UnsplashPhoto }> = ({ photo }) => {
   const bp = useBreakpoint();
 
   return (
-    <Image 
+    <Image
+      testID="details-head-image"
       source={{ uri: photo.urls.full }}
       style={[styles.image, bp !== "desktop" && styles.imageMobile]}
     />
