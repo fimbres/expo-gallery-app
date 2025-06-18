@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react-native';
+import { render, fireEvent, waitFor } from '@testing-library/react-native';
 
 import { mockPhotos } from '../mocks/photos';
 import { mockDownload, mockUseBreakpoint } from '../mocks/hooks';
@@ -13,29 +13,36 @@ describe('<DetailsBody />', () => {
     mockDownload.mockClear();
   });
 
-  it('renders avatar, name, bio, description and likes', () => {
-    mockUseBreakpoint.mockReturnValue('mobile');
-    const { getByTestId, getByText } = render(<DetailsBody photo={photo} />);
+  it('renders avatar, name, bio, description and likes', async () => {
+    mockUseBreakpoint.mockReturnValue('mobile')
+    const { findByTestId, findByText } = render(<DetailsBody photo={photo} />)
 
-    const avatar = getByTestId('avatar-image');
-    expect(avatar.props.source).toEqual({ uri: photo.user.profile_image.medium });
+    const avatar = await findByTestId('avatar-image')
+    expect(avatar.props.source)
+      .toEqual({ uri: photo.user.profile_image.medium });
 
-    expect(getByTestId('user-name').props.children).toBe(photo.user.name);
-    expect(getByTestId('user-bio').props.children).toBe(photo.user.bio);
+    const name = await findByTestId('user-name')
+    expect(name.props.children).toBe(photo.user.name);
 
+    const bio = await findByTestId('user-bio')
+    expect(bio.props.children).toBe(photo.user.bio);
+
+    const descNode = await findByTestId('photo-description');
     const expectedDesc = `${photo.user.name}: ${photo.description || photo.alt_description}`;
-    expect(getByTestId('photo-description').props.children.join('')).toBe(expectedDesc);
+    expect(descNode.props.children.join('')).toBe(expectedDesc);
 
-    expect(getByText(String(photo.likes))).toBeTruthy();
-  });
+    await findByText(String(photo.likes));
+})
 
-  it('calls download with the correct URL when pressing Download', () => {
+  it('calls download with the correct URL when pressing Download', async () => {
     mockUseBreakpoint.mockReturnValue('mobile');
     const { getByTestId } = render(<DetailsBody photo={photo} />);
 
     fireEvent.press(getByTestId('download-button'));
 
-    expect(mockDownload).toHaveBeenCalledTimes(1);
-    expect(mockDownload).toHaveBeenCalledWith(photo.links.download);
+    await waitFor(() => {
+      expect(mockDownload).toHaveBeenCalledTimes(1)
+      expect(mockDownload).toHaveBeenCalledWith(photo.links.download)
+    });
   });
 });
