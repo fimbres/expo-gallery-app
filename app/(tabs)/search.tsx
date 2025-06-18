@@ -4,6 +4,7 @@ import Head from "expo-router/head";
 
 import { SearchHead } from '../../components/SearchHead';
 import { PhotoCard } from '../../components/PhotoCard';
+import { EmptySearch } from '../../components/EmptySearch';
 
 import { fetchSearchPhotos } from '../../state/slices/search-slice';
 
@@ -52,6 +53,7 @@ export default function SearchScreen() {
             ) : null
         }
         stickyHeaderIndices={[0]}
+        ListEmptyComponent={() => <EmptySearch />}
         ListHeaderComponent={() => <SearchHead />}
         renderItem={({ item }) => <PhotoCard photo={item} />}
       />
