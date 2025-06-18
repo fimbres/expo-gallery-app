@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, ReactElement, useState } from 'react'
 import {
   Pressable,
   Text,
@@ -13,9 +13,10 @@ import { Styles } from '../constants/styles'
 
 interface ButtonProps extends PressableProps {
   title: string
+  icon?: ReactElement;
   containerStyle?: ViewStyle
   textStyle?: TextStyle
-  variant?: 'primary' | 'outline'
+  variant?: 'primary' | 'ghost'
 }
 
 const Button: FC<ButtonProps> = ({
@@ -25,6 +26,7 @@ const Button: FC<ButtonProps> = ({
   variant = 'primary',
   containerStyle,
   textStyle,
+  icon,
   ...rest
 }) => {
   const [hovered, setHovered] = useState(false)
@@ -41,7 +43,7 @@ const Button: FC<ButtonProps> = ({
       }}
       style={({ pressed }) => [
         styles.base,
-        variant === 'outline' ? styles.outline : styles.primary,
+        variant === 'ghost' ? styles.outline : styles.primary,
         containerStyle,
         pressed && styles.pressed,
         hovered && styles.hovered,
@@ -49,10 +51,11 @@ const Button: FC<ButtonProps> = ({
       ]}
       {...rest}
     >
+      {icon}
       <Text
         style={[
-          Styles.textCaptionSmall,
-          variant === 'outline' ? styles.outlineText : styles.primaryText,
+          Styles.textTitleSmall,
+          variant === 'ghost' ? styles.outlineText : styles.primaryText,
           textStyle,
         ]}
       >
@@ -69,6 +72,8 @@ const styles = StyleSheet.create({
     paddingVertical: 9,
     paddingHorizontal: 16,
     borderRadius: 6,
+    flexDirection: 'row',
+    gap: 5,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -79,8 +84,6 @@ const styles = StyleSheet.create({
   },
   outline: {
     backgroundColor: 'transparent',
-    borderWidth: 1,
-    borderColor: Colors.black,
   },
 
   // text
