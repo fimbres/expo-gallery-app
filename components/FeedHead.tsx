@@ -13,8 +13,10 @@ export const FeedHead: FC = () => {
   const isMobile = bp === "mobile";
 
   return (
-    <View style={[styles.container, !isMobile && styles.desktop, Platform.OS !== "web" && { paddingTop: 80 }]}>
-      <Text style={[Styles.textTitleExtraLarge, { flex: 1 }]}>Feed</Text>
+    <View style={[styles.container, !isMobile && styles.desktop, Platform.OS === "web" && { paddingTop: 30 }]}>
+      {Platform.OS === "web" && (
+        <Text style={[Styles.textTitleExtraLarge, { flex: 1 }]}>Feed</Text>
+      )}
       <View style={[styles.holder, isMobile && styles.mobileHolder]}>
         <Link
           href="/search"
@@ -38,7 +40,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    paddingTop: 30,
     paddingBottom: 10,
     backgroundColor: Colors.white,
   },
