@@ -1,18 +1,19 @@
 import { FC } from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, Platform } from 'react-native'
 import { Link } from 'expo-router';
 
 import { useBreakpoint } from '../hooks/use-breakpoint';
 
 import avatar from '../assets/avatar.avif'
 import { Styles } from '../constants/styles';
+import { Colors } from '../constants/colors';
 
 export const FeedHead: FC = () => {
   const bp = useBreakpoint();
   const isMobile = bp === "mobile";
 
   return (
-    <View style={[styles.container, !isMobile && styles.desktop]}>
+    <View style={[styles.container, !isMobile && styles.desktop, Platform.OS !== "web" && { paddingTop: 80 }]}>
       <Text style={[Styles.textTitleExtraLarge, { flex: 1 }]}>Feed</Text>
       <View style={[styles.holder, isMobile && styles.mobileHolder]}>
         <Link
@@ -38,6 +39,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     paddingTop: 30,
+    paddingBottom: 10,
+    backgroundColor: Colors.white,
   },
   desktop: {
     width: '100%',
@@ -46,7 +49,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     gap: 15,
     paddingTop: 20,
-    paddingBottom: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#f5f5f5'
   },
