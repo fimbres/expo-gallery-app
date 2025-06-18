@@ -37,7 +37,9 @@ export const SearchHead: FC = () => {
           style={styles.avatar}
         />
       </View>
-      <Text style={Styles.textTitleRegular}>Results for: {query}</Text>
+      {!!query.length && (
+        <Text style={Styles.textTitleRegular}>Results for: {query}</Text>
+      )}
     </>
   )
 }
