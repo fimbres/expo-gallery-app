@@ -18,3 +18,13 @@ Just type w after starting the app.
 
 ### ▶️ Mobile
 Just scan the qr code in Expo Go after starting the app.
+
+## Features
+✅ Search images by keyword
+✅ Infinite scroll with pagination
+✅ Detailed view for each photo
+✅ Download photos locally (with permission on mobile)
+✅ Fully responsive (web and mobile)
+✅ Expo Router-based navigation
+✅ Redux-managed global state
+✅ Unit testing with coverage reports
