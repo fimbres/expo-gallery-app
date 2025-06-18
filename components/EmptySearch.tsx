@@ -12,7 +12,8 @@ export const EmptySearch: FC = () => {
 
   return (
     <View style={styles.container}>
-      <MaterialIcons 
+      <MaterialIcons
+        testID="empty-search-icon"
         name={querySearch.length ? "search-off" : "search"}
         color={Colors.black}
         size={80}
