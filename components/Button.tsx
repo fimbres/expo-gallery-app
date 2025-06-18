@@ -8,6 +8,7 @@ import {
   TextStyle,
   PressableProps,
 } from 'react-native'
+
 import { Colors } from '../constants/colors'
 import { Styles } from '../constants/styles'
 
@@ -77,20 +78,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-
-  // variants
   primary: {
     backgroundColor: Colors.black,
   },
   outline: {
     backgroundColor: 'transparent',
   },
-
-  // text
   primaryText: { color: Colors.white },
   outlineText: { color: Colors.black },
-
-  // states
   pressed: { opacity: 0.5 },
   hovered: { opacity: 0.75 },
   disabled: { opacity: 0.3 }
