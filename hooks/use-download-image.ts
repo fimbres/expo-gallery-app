@@ -17,21 +17,26 @@ export function useDownloadImage() {
 
       const { status } = await MediaLibrary.requestPermissionsAsync();
       if (status !== 'granted') {
-        Alert.alert('Permiso denegado', 'No podemos guardar la imagen sin permiso');
+        Alert.alert('Permission Denied', 'Permission must be granted');
         return;
       }
 
-      const fileName = imageUrl.split('/').pop() ?? 'download.jpg';
+      const urlWithoutParams = imageUrl.split('?')[0];
+      let fileName = urlWithoutParams.split('/').pop() ?? 'download';
+      if (!fileName.includes('.')) {
+        fileName += '.jpg';
+      }
+
       const fileUri = `${FileSystem.cacheDirectory}${fileName}`;
       const { uri } = await FileSystem.downloadAsync(imageUrl, fileUri);
 
       const asset = await MediaLibrary.createAssetAsync(uri);
-      await MediaLibrary.createAlbumAsync('MyApp Photos', asset, false);
+      await MediaLibrary.createAlbumAsync('Expo Gallery Photos', asset, false);
 
-      Alert.alert('¡Descargado!', 'La imagen se guardó en tu galería.');
+      Alert.alert('Photo Downloaded', 'The download was successful.');
     } catch (err) {
       console.error(err);
-      Alert.alert('Error', 'No se pudo descargar la imagen.');
+      Alert.alert('Error', 'Something went wrong.');
     } finally {
       setDownloading(false);
     }
