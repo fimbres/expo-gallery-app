@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { View, Text, Image, StyleSheet, TouchableHighlight } from 'react-native';
+import { useRouter } from 'expo-router';
 
 import { UnsplashPhoto } from '../types/unsplash';
 import { Styles } from '../constants/styles';
-import { Link, useRouter } from 'expo-router';
 
 interface PhotoCardProps {
     photo: UnsplashPhoto
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   thumbnail: {
     width: '100%',
     aspectRatio: 1,
-    borderRadius: 8,
+    borderRadius: 12,
     backgroundColor: '9e9e9e'
   },
   container: {
