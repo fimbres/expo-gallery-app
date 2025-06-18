@@ -11,7 +11,7 @@ import { useAppSelector } from '../hooks/use-app-selector';
 import { useAppDispatch } from '../hooks/use-app-dispatch';
 
 export default function SearchScreen() {
-  const d = useBreakpoint();
+  const bp = useBreakpoint();
   const dispatch = useAppDispatch();
   const { photos, hasMore, loading, searchQuery } = useAppSelector((s) => s.search);
 
@@ -29,9 +29,9 @@ export default function SearchScreen() {
   
   return (
     <FlatList
-        key={d === "mobile" ? "mobile" : "desktop"}
-        numColumns={d === "mobile" ? 2 : 3}
-        contentContainerStyle={styles.container}
+        key={bp === "mobile" ? "mobile" : "desktop"}
+        numColumns={bp === "mobile" ? 2 : 3}
+        contentContainerStyle={[styles.container, bp !== "mobile" && styles.desktopContainer]}
         columnWrapperStyle={styles.column}
         data={photos}
         extraData={loading}
@@ -57,6 +57,11 @@ const styles = StyleSheet.create({
     gap: 10,
     paddingHorizontal: 10,
     paddingBottom: 60
+  },
+  desktopContainer: {
+    maxWidth: 900,
+    marginRight: 'auto',
+    marginLeft: 'auto',
   },
   column: {
     gap: 10
