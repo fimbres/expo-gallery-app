@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     paddingBottom: 10,
+    paddingHorizontal: 10,
     backgroundColor: Colors.white,
   },
   desktop: {
