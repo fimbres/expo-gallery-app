@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
+import Head from 'expo-router/head';
 
 import { PhotoCard } from '../components/PhotoCard';
 import { FeedHead } from '../components/FeedHead';
@@ -26,25 +27,31 @@ export default function FeedScreen() {
   };
   
   return (
-    <FlatList
-        key={bp === "mobile" ? "mobile" : "desktop"}
-        numColumns={bp === "mobile" ? 2 : 3}
-        contentContainerStyle={[styles.container, bp !== "mobile" && styles.desktopContainer]}
-        columnWrapperStyle={styles.column}
-        data={photos}
-        extraData={loading}
-        onEndReached={handleEndReached}
-        onEndReachedThreshold={0.5}
-        ListFooterComponent={
-            loading ? (
-            <View style={styles.footer}>
-                <ActivityIndicator size="large" />
-            </View>
-            ) : null
-        }
-        ListHeaderComponent={() => <FeedHead />}
-        renderItem={({ item }) => <PhotoCard photo={item} />}
-    />
+    <>
+      <Head>
+        <title>Expo Gallery | Feed</title>
+        <meta name="description" content="Discover photos with React Native Web." />
+      </Head>
+      <FlatList
+          key={bp === "mobile" ? "mobile" : "desktop"}
+          numColumns={bp === "mobile" ? 2 : 3}
+          contentContainerStyle={[styles.container, bp !== "mobile" && styles.desktopContainer]}
+          columnWrapperStyle={styles.column}
+          data={photos}
+          extraData={loading}
+          onEndReached={handleEndReached}
+          onEndReachedThreshold={0.5}
+          ListFooterComponent={
+              loading ? (
+              <View style={styles.footer}>
+                  <ActivityIndicator size="large" />
+              </View>
+              ) : null
+          }
+          ListHeaderComponent={() => <FeedHead />}
+          renderItem={({ item }) => <PhotoCard photo={item} />}
+      />
+    </>
   );
 }
 

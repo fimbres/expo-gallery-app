@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
+import Head from "expo-router/head";
 
 import { SearchHead } from '../components/SearchHead';
 import { PhotoCard } from '../components/PhotoCard';
 
-import { clearSearch, fetchSearchPhotos } from '../state/slices/search-slice';
+import { fetchSearchPhotos } from '../state/slices/search-slice';
 
 import { useBreakpoint } from '../hooks/use-breakpoint';
 import { useAppSelector } from '../hooks/use-app-selector';
@@ -28,7 +29,12 @@ export default function SearchScreen() {
   };
   
   return (
-    <FlatList
+    <>
+      <Head>
+        <title>Expo Gallery | Search</title>
+        <meta name="description" content="Search photos using keywords with React Native Web." />
+      </Head>
+      <FlatList
         key={bp === "mobile" ? "mobile" : "desktop"}
         numColumns={bp === "mobile" ? 2 : 3}
         contentContainerStyle={[styles.container, bp !== "mobile" && styles.desktopContainer]}
@@ -46,7 +52,8 @@ export default function SearchScreen() {
         }
         ListHeaderComponent={() => <SearchHead />}
         renderItem={({ item }) => <PhotoCard photo={item} />}
-    />
+      />
+    </>
   );
 }
 
