@@ -1,43 +1,31 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Image, StyleSheet, View } from 'react-native'
 
 import { Input } from './Input'
 
-import { fetchSearchPhotos, clearSearch } from '../state/slices/search-slice'
+import { setQuery } from '../state/slices/search-slice'
 
-import { useBreakpoint } from '../hooks/use-breakpoint'
 import { useAppDispatch } from '../hooks/use-app-dispatch'
 
 import avatar from '../assets/avatar.avif'
-import { useDebounce } from '../hooks/use-debounce'
 
 export const SearchHead: FC = () => {
-  const bp = useBreakpoint();
   const dispatch = useAppDispatch();
-  const [query, setQuery] = useState('');
+  const [queryText, setQueryText] = useState('');
 
-  const { debounced, flush } = useDebounce((q: string) => {
-    if (q.trim()) {
-      dispatch(clearSearch())
-      dispatch(fetchSearchPhotos(q))
-    } else {
-      dispatch(clearSearch())
+  useEffect(() => {
+    if(queryText.length >= 3) {
+      dispatch(setQuery(queryText));
     }
-  }, 500);
-
-  const onChange = (text: string) => {
-    setQuery(text)
-    debounced(text)
-  }
+  }, [queryText]);
 
   return (
     <View style={[styles.desktop]}>
       <Input 
         placeholder='Search photos...'
         returnKeyType='search'
-        value={query}
-        onChangeText={onChange}
-        onSubmitEditing={() => flush()}
+        value={queryText}
+        onChangeText={t => setQueryText(t)}
       />
       <Image
         source={avatar}

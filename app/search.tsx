@@ -1,22 +1,33 @@
+import { useEffect } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 
+import { SearchHead } from '../components/SearchHead';
 import { PhotoCard } from '../components/PhotoCard';
 
-import { fetchAllPhotos } from '../state/slices/feed-slice';
+import { clearSearch, fetchSearchPhotos } from '../state/slices/search-slice';
 
 import { useBreakpoint } from '../hooks/use-breakpoint';
 import { useAppSelector } from '../hooks/use-app-selector';
 import { useAppDispatch } from '../hooks/use-app-dispatch';
-import { SearchHead } from '../components/SearchHead';
 
 export default function SearchScreen() {
   const d = useBreakpoint();
   const dispatch = useAppDispatch();
   const { photos, hasMore, loading, searchQuery } = useAppSelector((s) => s.search);
 
+  useEffect(() => {
+    if (searchQuery) {
+      dispatch(fetchSearchPhotos(searchQuery));
+    }
+
+    return () => {
+      dispatch(clearSearch())
+    };
+  }, [dispatch, searchQuery]);
+
   const handleEndReached = () => {
     if (!loading && hasMore) {
-      dispatch(fetchAllPhotos());
+      dispatch(fetchSearchPhotos(searchQuery));
     }
   };
   
