@@ -13,7 +13,7 @@ export const FeedHead: FC = () => {
   const isMobile = bp === "mobile";
 
   return (
-    <View style={[styles.container, !isMobile && styles.desktop, Platform.OS === "web" && { paddingTop: 30 }]}>
+    <View style={[styles.container, !isMobile && styles.desktop, Platform.OS === "web" && { paddingTop: 20 }]}>
       {Platform.OS === "web" && (
         <Text style={[Styles.textTitleExtraLarge, { flex: 1 }]}>Feed</Text>
       )}

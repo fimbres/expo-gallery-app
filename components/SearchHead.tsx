@@ -27,7 +27,7 @@ export const SearchHead: FC = () => {
   };
 
   return (
-    <View style={[styles.container, !isMobile && styles.desktop, Platform.OS === "web" && { paddingTop: 30 }]}>
+    <View style={[styles.container, !isMobile && styles.desktop, Platform.OS === "web" && { paddingTop: 20 }]}>
       {Platform.OS === "web" && (
         <Text style={[Styles.textTitleExtraLarge, { marginBottom: 20, textAlign: "center" }]}>Search</Text>
       )}
@@ -60,8 +60,6 @@ const styles = StyleSheet.create({
   },
   desktop: {
     width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
     alignSelf: 'center',
     gap: 15,
     paddingTop: 20,
