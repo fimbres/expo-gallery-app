@@ -52,12 +52,12 @@ const PhotoDetailsScreen: FC = () => {
             }}
             style={styles.avatar}
           />
-          <View>
+          <View style={{ flex: 1 }}>
             <Text style={Styles.textTitleRegular}>{photo.user.name}</Text>
-            <Text style={Styles.textCaptionSmall}>{photo.user.bio}</Text>
+            <Text style={[Styles.textCaptionSmall, { flex: 1, flexWrap: "wrap" }]}>{photo.user.bio}</Text>
           </View>
         </View>
-        <Text style={Styles.textCaptionSmall}>{photo.user.name}: {photo.description || photo.alt_description}</Text>
+        <Text style={[Styles.textCaptionSmall, { flex: 1, flexWrap: "wrap" }]}>{photo.user.name}: {photo.description || photo.alt_description}</Text>
         <View style={[styles.row, { justifyContent: bp === 'desktop' ? 'flex-start' : 'space-evenly', gap: 10 }]}>
           <View style={styles.row}>
             <AntDesign name={`heart${!photo.liked_by_user ? 'o' : ''}`} size={24} color={Colors.black} />
