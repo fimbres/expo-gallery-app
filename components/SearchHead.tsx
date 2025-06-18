@@ -1,16 +1,20 @@
 import { FC, useState } from 'react'
-import { Image, StyleSheet, View } from 'react-native'
+import { Image, StyleSheet, View, Text } from 'react-native'
 
 import { Input } from './Input'
 
 import { clearSearch, setQuery } from '../state/slices/search-slice'
 
 import { useAppDispatch } from '../hooks/use-app-dispatch'
+import { useAppSelector } from '../hooks/use-app-selector'
+
+import { Styles } from '../constants/styles'
 
 import avatar from '../assets/avatar.avif'
 
 export const SearchHead: FC = () => {
   const dispatch = useAppDispatch();
+  const query = useAppSelector(state => state.search.searchQuery);
   const [queryText, setQueryText] = useState('');
 
   const submit = () => {
@@ -19,24 +23,27 @@ export const SearchHead: FC = () => {
   };
 
   return (
-    <View style={[styles.desktop]}>
-      <Input 
-        placeholder='Search photos...'
-        returnKeyType='search'
-        value={queryText}
-        onChangeText={setQueryText}
-        onSubmitEditing={submit}
-      />
-      <Image
-        source={avatar}
-        style={styles.avatar}
-      />
-    </View>
+    <>
+      <View style={styles.container}>
+        <Input 
+          placeholder='Search photos...'
+          returnKeyType='search'
+          value={queryText}
+          onChangeText={setQueryText}
+          onSubmitEditing={submit}
+        />
+        <Image
+          source={avatar}
+          style={styles.avatar}
+        />
+      </View>
+      <Text style={Styles.textTitleRegular}>Results for: {query}</Text>
+    </>
   )
 }
 
 const styles = StyleSheet.create({
-  desktop: {
+  container: {
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
@@ -44,6 +51,7 @@ const styles = StyleSheet.create({
     gap: 15,
     paddingTop: 20,
     paddingBottom: 10,
+    marginBottom: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#f5f5f5'
   },
