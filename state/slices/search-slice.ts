@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
 import { searchPhotos } from '../../services/unsplash';
 
@@ -31,6 +31,9 @@ const searchSlice = createSlice({
   name: 'search',
   initialState,
   reducers: {
+    setQuery(state, action: PayloadAction<string>) {
+      state.searchQuery = action.payload;
+    },
     clearSearch(state) {
       state.photos = [];
       state.page = 1;
@@ -67,5 +70,5 @@ const searchSlice = createSlice({
   },
 });
 
-export const { clearSearch } = searchSlice.actions;
+export const { clearSearch, setQuery } = searchSlice.actions;
 export default searchSlice.reducer;
