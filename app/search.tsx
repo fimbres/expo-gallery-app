@@ -23,7 +23,7 @@ export default function SearchScreen() {
   }, [dispatch, searchQuery]);
 
   const handleEndReached = () => {
-    if (!loading && hasMore) {
+    if (!loading && hasMore && searchQuery) {
       dispatch(fetchSearchPhotos(searchQuery));
     }
   };
