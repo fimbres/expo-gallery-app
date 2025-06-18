@@ -2,14 +2,14 @@ import { useEffect } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 import Head from "expo-router/head";
 
-import { SearchHead } from '../components/SearchHead';
-import { PhotoCard } from '../components/PhotoCard';
+import { SearchHead } from '../../components/SearchHead';
+import { PhotoCard } from '../../components/PhotoCard';
 
-import { fetchSearchPhotos } from '../state/slices/search-slice';
+import { fetchSearchPhotos } from '../../state/slices/search-slice';
 
-import { useBreakpoint } from '../hooks/use-breakpoint';
-import { useAppSelector } from '../hooks/use-app-selector';
-import { useAppDispatch } from '../hooks/use-app-dispatch';
+import { useBreakpoint } from '../../hooks/use-breakpoint';
+import { useAppSelector } from '../../hooks/use-app-selector';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
 
 export default function SearchScreen() {
   const bp = useBreakpoint();

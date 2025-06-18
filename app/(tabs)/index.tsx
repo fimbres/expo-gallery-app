@@ -2,14 +2,14 @@ import { useEffect } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 import Head from 'expo-router/head';
 
-import { PhotoCard } from '../components/PhotoCard';
-import { FeedHead } from '../components/FeedHead';
+import { PhotoCard } from '../../components/PhotoCard';
+import { FeedHead } from '../../components/FeedHead';
 
-import { fetchAllPhotos } from '../state/slices/feed-slice';
+import { fetchAllPhotos } from '../../state/slices/feed-slice';
 
-import { useBreakpoint } from '../hooks/use-breakpoint';
-import { useAppSelector } from '../hooks/use-app-selector';
-import { useAppDispatch } from '../hooks/use-app-dispatch';
+import { useBreakpoint } from '../../hooks/use-breakpoint';
+import { useAppSelector } from '../../hooks/use-app-selector';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
 
 export default function FeedScreen() {
   const bp = useBreakpoint();
