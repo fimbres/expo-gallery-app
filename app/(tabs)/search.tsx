@@ -37,6 +37,7 @@ export default function SearchScreen() {
       <FlatList
         key={bp === "mobile" ? "mobile" : "desktop"}
         numColumns={bp === "mobile" ? 2 : 3}
+        style={{ flex: 1 }}
         contentContainerStyle={[styles.container, bp !== "mobile" && styles.desktopContainer]}
         columnWrapperStyle={styles.column}
         data={photos}
@@ -50,6 +51,7 @@ export default function SearchScreen() {
             </View>
             ) : null
         }
+        stickyHeaderIndices={[0]}
         ListHeaderComponent={() => <SearchHead />}
         renderItem={({ item }) => <PhotoCard photo={item} />}
       />
@@ -59,7 +61,7 @@ export default function SearchScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     width: '100%',
     gap: 10,
     paddingHorizontal: 10,
