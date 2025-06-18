@@ -1,9 +1,9 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 import { Image, StyleSheet, View } from 'react-native'
 
 import { Input } from './Input'
 
-import { setQuery } from '../state/slices/search-slice'
+import { clearSearch, setQuery } from '../state/slices/search-slice'
 
 import { useAppDispatch } from '../hooks/use-app-dispatch'
 
@@ -13,11 +13,10 @@ export const SearchHead: FC = () => {
   const dispatch = useAppDispatch();
   const [queryText, setQueryText] = useState('');
 
-  useEffect(() => {
-    if(queryText.length >= 3) {
-      dispatch(setQuery(queryText));
-    }
-  }, [queryText]);
+  const submit = () => {
+    dispatch(clearSearch());
+    dispatch(setQuery(queryText));
+  };
 
   return (
     <View style={[styles.desktop]}>
@@ -25,7 +24,8 @@ export const SearchHead: FC = () => {
         placeholder='Search photos...'
         returnKeyType='search'
         value={queryText}
-        onChangeText={t => setQueryText(t)}
+        onChangeText={setQueryText}
+        onSubmitEditing={submit}
       />
       <Image
         source={avatar}

@@ -19,10 +19,6 @@ export default function SearchScreen() {
     if (searchQuery) {
       dispatch(fetchSearchPhotos(searchQuery));
     }
-
-    return () => {
-      dispatch(clearSearch())
-    };
   }, [dispatch, searchQuery]);
 
   const handleEndReached = () => {
